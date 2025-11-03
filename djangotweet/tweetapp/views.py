@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from . import models
 
 # Create your views here.
 
-def listtweets(request):
-    return render(request, 'tweetapp/listtweets.html')
+def listtweet(request):
+    all_tweets = models.Tweet.objects.all()
+    tweet_dict = {'tweets': all_tweets}
+    return render(request, 'tweetapp/listtweet.html', context=tweet_dict)
 
-def addtweets(request):
-    return render(request, 'tweetapp/addtweets.html')
+def addtweet(request):
+    return render(request, 'tweetapp/addtweet.html')

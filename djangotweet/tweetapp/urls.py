@@ -4,6 +4,6 @@ from .import views
 app_name = 'tweetapp'
 
 urlpatterns = [
-    path('listtweets/',views.listtweets, name='listtweets'),
-    path('addtweets/',views.addtweets, name='addtweets'),
+    path('',views.listtweet, name='listtweet'),
+    path('addtweet/',views.addtweet, name='addtweet'),
 ]
