@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from . import models
 from django.urls import reverse
-from .froms import AddTweetForm
+from .froms import AddTweetForm, AddTweetModelForm
 # Create your views here.
 
 def listtweet(request):
@@ -20,10 +20,31 @@ def addtweet(request):
     
 def addtweetbyform(request):
     if request.method == "POST":
-            print(request.POST)
-            return redirect(reverse('tweetapp:listtweet'))
-   
-            return render(request, 'tweetapp/addtweetbyform.html', context={'form':form})
+            form=AddTweetForm(request.POST)
+            if form.is_valid():
+                nickname=form.cleaned_data['nickname']
+                message=form.cleaned_data['message']
+                return redirect(reverse('tweetapp:listtweet'))
+            
+            else:   
+                print("error in form")     
+                return render(request, 'tweetapp/addtweetbyform.html', context={'form':form})
+
+        
     else:
         form=AddTweetForm()
         return render(request, 'tweetapp/addtweetbyform.html', context={'form':form})
+    
+
+def addtweetbymodelform(request):
+    if request.method == "POST":
+        form=AddTweetModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('tweetapp:listtweet'))
+        else:
+            print("error in form")
+            return render(request, 'tweetapp/addtweetbymodelform.html', context={'form':form})
+    else:
+        form=AddTweetModelForm()
+        return render(request, 'tweetapp/addtweetbymodelform.html', context={'form':form})

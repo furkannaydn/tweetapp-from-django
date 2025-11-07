@@ -2,13 +2,23 @@
 
 {% block content %}
 
-<h1>List of Tweets</h1>
-<ul>
-    {% for tweet in tweets %}
-        <li><strong>{{ tweet.nickname }}</strong>: {{ tweet.message }}</li>
-    {% empty %}
-        <li>No tweets available.</li>
-    {% endfor %}
-</ul>
 
+    <div class="container" style="width:%50;">
+        
+    {% for tweet in tweets %}
+    <div class="card" style="padding:10px;">
+        <div class="card-header" style="background-color:cornflowerblue;">
+            <h4>{{ tweet.nickname }}</h4>
+            </div>
+        <div class="card-body">
+           <p class="card-text">{{ tweet.message }}</p>
+        </div>
+ 
+
+</div>
+    {% endfor %}
+    
+
+
+</div>
 {% endblock %}
